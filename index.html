@@ -23,7 +23,7 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
+            width: 96%;
             max-width: 500px;
             padding: 20px;
             box-sizing: border-box;
@@ -117,13 +117,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            /* カレンダーを中央に配置 */
             margin-bottom: 20px;
             position: relative;
-            width: 106%;
-            /* 横幅を広げる */
-            margin-left: -7%;
-            /* 親要素の中心にカレンダーを配置 */
+            width: 100%;
         }
 
         .calendar {
@@ -133,84 +129,141 @@
             border-radius: 4px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            /* 横スクロールを防ぐ */
-            width: 106%;
+            width: 100%;
         }
 
         .calendar table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
+            /* セル幅を均等にする */
         }
 
         .calendar th,
         .calendar td {
+            font-size: 12.5px;
+            /* ここでフォントサイズを変更 */
             text-align: center;
             padding: 5px;
             cursor: pointer;
             vertical-align: top;
-            width: 14.28%;
-            /* 7日間が一列に収まるように設定 */
+            width: auto;
+            /* 通常のセルは自動調整 */
             box-sizing: border-box;
-            border: 1px solid #000;
-            /* ここで区切り線を追加 */
+            border: 1px solid #1a1a1a;
+        }
+
+        .calendar th:first-child,
+        .calendar td:first-child {
+            width: 17%;
+            /* ここで時間列の幅を調整 */
+            font-size: 12.5px;
+            /* フォントサイズを変更 */
         }
 
         .calendar th {
             background-color: #f7f7f7;
-            /* カレンダーのヘッダー部分の背景色を薄いグレーに設定 */
         }
 
         .calendar td:hover {
             background-color: #ddd;
-            /* カレンダーのセルにマウスを乗せたときの背景色を少し濃いグレーに設定 */
         }
 
         .calendar td.selected {
-            background-color: #26522c;
-            /* 選択されたカレンダーのセルの背景色を緑色に設定 */
+            background-color: #3e3f41;
             color: #fff;
-            /* 選択されたセルのテキスト色を白に設定 */
         }
 
         .week-button-container {
             display: flex;
-            /* 子要素を横方向に並べるためにflexboxを使用 */
             justify-content: space-between;
-            /* 子要素を左右に均等に配置 */
             align-items: center;
-            /* 子要素を縦方向の中央に揃える */
             width: 100%;
-            /* コンテナの幅を100%に設定 */
             margin-bottom: 10px;
-            /* 下に10pxのマージンを追加 */
         }
 
         .week-button {
             padding: 10px 20px;
-            /* 上下10px、左右20pxの内側の余白を追加 */
-            background-color: #444;
-            /* ボタンの背景色を濃いグレーに設定 */
-            color: #fff;
-            /* ボタンのテキスト色を白に設定 */
-            border: none;
-            /* ボタンの境界線を削除 */
+            background-color: #ffffff;
+            color: #222222;
+            border: 1px solid black;
+            /* ← 外枠を黒1pxに設定 */
             border-radius: 4px;
-            /* ボタンの角を4pxの半径で丸める */
             cursor: pointer;
-            /* マウスカーソルをポインター（指の形）に変更 */
-            margin-left: 31px;
-            /* 左側に20pxの余白を追加して右にずらす */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            transform-origin: center center;
+        }
+
+        .week-button:hover {
+            background-color: #ffffff;
+            transform: scale(1.15);
+            /* ドーン！ってくらい拡大🔥 */
+        }
+
+        .week-button:active {
+            transform: scale(0.95);
+            /* クリックした瞬間にギュッと縮む💥 */
+        }
+
+        .month-button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .month-button {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #222222;
+            border: 1px solid black;
+            /* ← 外枠を黒1pxに設定 */
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            transform-origin: center center;
+        }
+
+        .month-button:hover {
+            background-color: #ffffff;
+            transform: scale(1.15);
+            /* ドーン！ってくらい拡大🔥 */
+        }
+
+        .month-button:active {
+            transform: scale(0.95);
+            /* クリックした瞬間にギュッと縮む💥 */
         }
 
         .current-month {
-            font-size: 14px;
-            /* フォントサイズを16pxに設定 */
-            font-weight: bold;
-            /* テキストを太字に設定 */
-            color: #444;
-            /* テキストの色を濃いグレーに設定 */
-            margin-left: 30px;
-            /* 10pxだけ右にずらす */
+            font-size: 16px;
+            font-weight: 300;
+            color: #3e3f41;
+            margin-top: 20px;
+            /* 下にずらす */
+            display: inline-block;
+            /* margin-top を適用しやすくする */
+        }
+
+        .current-month {
+            text-align: center;
+            display: block;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -10px);
+            /* Y方向に上げる */
+            background-color: #3e3f41;
+            color: #fff;
+            padding: 3px 12px;
+            /* ボックスのパディングを縮小 */
+            border-radius: 8px;
+            /* 角の丸みを少し減少 */
+            font-size: 1.4rem;
+            /* フォントサイズを小さく */
+            font-weight: 300;
+            box-shadow: 0 2px 6px rgba(47, 103, 167, 0.2);
+            /* 影も控えめに */
         }
 
         .loading-spinner {
@@ -438,10 +491,10 @@
         <h1>占いサロン侑詩徹占<br>予約フォーム</h1>
 
         <div class="label">氏名</div>
-        <input type="text" id="name" placeholder="お名前を入力してください">
+        <input type="text" id="name" placeholder="お名前を入力してください" oninput="saveInput('name')">
 
         <div class="label">電話番号</div>
-        <input type="tel" id="phone" placeholder="電話番号を入力してください">
+        <input type="tel" id="phone" placeholder="電話番号を入力してください" oninput="saveInput('phone')">
 
         <div class="label">ご来店回数をお選びください</div>
         <div class="visit-buttons">
@@ -546,21 +599,35 @@
             '60分占い': 75
         };
 
-
         let selectedMenuTime = 0;
+
+        // 入力内容をローカルストレージに保存
+        function saveInput(id) {
+            const value = document.getElementById(id).value;
+            localStorage.setItem(id, value);
+        }
+
+        // ページが読み込まれたときに前回の入力内容を復元
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedName = localStorage.getItem('name');
+            const savedPhone = localStorage.getItem('phone');
+
+            if (savedName) document.getElementById('name').value = savedName;
+            if (savedPhone) document.getElementById('phone').value = savedPhone;
+        });
 
         function updateDisplayInfo() {
             const name = document.getElementById('name').value;
-            const visitCountText = visitCount ? `・<span style="color:red;"><strong>来店回数</strong></span>：${visitCount}` : '・来院回数が未選択です';
+            const visitCountText = visitCount ? `・<span style="color:#007142;"><strong>来店回数</strong></span>：${visitCount}` : '・来院回数が未選択です';
 
             // メニューが選択されていたら、各メニューを改行して表示
             const selectedSymptomText = selectedSymptom.length > 0
-                ? `<span style="color:red;"><strong>【メニュー】</strong></span><br>・${selectedSymptom.join('<br>')}`
+                ? `<span style="color:#007142;"><strong>【メニュー】</strong></span><br>・${selectedSymptom.join('<br>')}`
                 : '・メニューが未選択です';
 
             // オプションが選択されていたら、各オプションを改行して表示
             const irradiationsText = irradiationsCount
-                ? `<span style="color:red;"><strong>【オプション】</strong></span><br>・${irradiationsCount.split(', ').join('<br>・')}`
+                ? `<span style="color:#007142;"><strong>【オプション】</strong></span><br>・${irradiationsCount.split(', ').join('<br>・')}`
                 : '・オプション無し';
 
             // 所要時間を計算
@@ -569,17 +636,17 @@
             let minutes = totalMinutes % 60;
 
             // 所要時間の表示形式：○○時間○○分
-            let totalTimeText = `・<span style="color:red;"><strong>所要時間</strong></span>：${hours > 0 ? hours + '時間' : ''}${minutes}分`;
+            let totalTimeText = `・<span style="color:#007142;"><strong>所要時間</strong></span>：${hours > 0 ? hours + '時間' : ''}${minutes}分`;
 
             // 合計金額の表示
-            const totalAmountText = `・<span style="color:red;"><strong>合計金額</strong></span>：¥${menuPrice + optionsPrice}`;
+            const totalAmountText = `・<span style="color:#007142;"><strong>合計金額</strong></span>：¥${menuPrice + optionsPrice}`;
 
             // 希望日時が選択された場合の表示
-            const selectedDateText = selectedFullDate ? `・<span style="color:red;"><strong>希望日時</strong></span>：${selectedFullDate}` : '・日時が未選択です';
+            const selectedDateText = selectedFullDate ? `・<span style="color:#007142;"><strong>希望日時</strong></span>：${selectedFullDate}` : '・日時が未選択です';
 
             // displayInfo要素に情報を表示
             document.getElementById('displayInfo').innerHTML = `
-        <p>・<span style="color:red;"><strong>お名前</strong></span>：${name}</p>
+        <p>・<span style="color:#007142;"><strong>お名前</strong></span>：${name}</p>
         <hr>
         <p>${visitCountText}</p>
         <hr>
@@ -667,55 +734,9 @@
             const treatmentText = document.getElementById('treatment-text');
 
             if (treatmentId === 'treatment1') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：90分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：6,500円<br>初診料：＋2,200円</strong></div><br>悠心堂<strong>オススメ</strong>の<strong>オーダーメイド治療</strong>です。<br>
-                鍼灸のツボ刺激で内臓から調整し、整体ではカラダのコリと血流改善を狙います。<br>
-                鍼は最小限の刺激で最大限の効果を狙い、<br>10～20本程度使います。<br>
-                お灸は、やけどにならないお灸を使います。<br>
-                <span style="color: blue;">-全身症状の改善・カラダのメンテナンスを希望の方へ。</span>`;
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：90分</strong>`;
             } else if (treatmentId === 'treatment2') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：60分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：4,500円<br>初診料：＋2,200円</strong></div><br>健康で美しい顔はとても素敵です。<br>
-                顔の周りのツボに施術することで、血流を促進します。<br>
-                むくみ、シワ、肌質などお顔のお悩みにぜひ。<br>
-                眼精疲労や脳のストレス発散など健康効果も。`;
-            } else if (treatmentId === 'treatment3') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：120分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：8,700円<br>初診料：＋2,200円</strong></div><br><strong>全身治療</strong>と<strong>美容鍼</strong>を同時に受けて頂けるメニューです。<br>
-                顔は内臓の状態を反映します。<br>
-                美容鍼のさらなる効果を求める方にもオススメしています。<br>
-                <span style="color: blue;">-しわ・たるみ・むくみの気になる方。<br>
-                -顔色が悪い・笑顔が固いという方へ。</span>`;
-            } else if (treatmentId === 'treatment4') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：30分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：1,700円<br>初診料：＋2,200円</strong></div><br><strong>刺さない鍼</strong>を使った施術メニューです。<br>
-                痛くなく<strong>気持ちいい</strong>ので子どもでも安心して受けていただけます。<br>
-                生後1ヶ月～小学生までオススメします。<br>
-                <span style="color: blue;">-夜泣き・疳の虫（ギャーギャー泣く）<br>
-                -夜尿（おねしょ）</span><br>
-                <span style="color: blue;">-食欲不振<br>
-                -虚弱体質（風邪をひきやすいなど）</span><br><br>`;
-            } else if (treatmentId === 'treatment5') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：60分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：6,500円</strong></div><br>悠心堂<strong>オススメ</strong>の<strong>オーダーメイド治療</strong>です。<br>
-                鍼灸のツボ刺激で内臓から調整し、整体ではカラダのコリと血流改善を狙います。<br>
-                鍼は最小限の刺激で最大限の効果を狙い、<br>10～20本程度使います。<br>
-                お灸は、やけどにならないお灸を使います。<br>
-                <span style="color: blue;">-全身症状の改善・カラダのメンテナンスを希望の方へ。</span>`;
-            } else if (treatmentId === 'treatment6') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：30分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：4,500円</strong></div><br>健康で美しい顔はとても素敵です。<br>
-                顔の周りのツボに施術することで、血流を促進します。<br>
-                むくみ、シワ、肌質などお顔のお悩みにぜひ。<br>
-                眼精疲労や脳のストレス発散など健康効果も。`;
-            } else if (treatmentId === 'treatment7') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：90分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：8,700円</strong></div><br><strong>全身治療</strong>と<strong>美容鍼</strong>を同時に受けて頂けるメニューです。<br>
-                顔は内臓の状態を反映します。<br>
-                美容鍼のさらなる効果を求める方にもオススメしています。<br>
-                <span style="color: blue;">-しわ・たるみ・むくみの気になる方。<br>
-                -顔色が悪い・笑顔が固いという方へ。</span>`;
-            } else if (treatmentId === 'treatment8') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：15分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：1,700円</strong></div><br><strong>刺さない鍼</strong>を使った施術メニューです。<br>
-                痛くなく<strong>気持ちいい</strong>ので子どもでも安心して受けていただけます。<br>
-                生後1ヶ月～小学生までオススメします。<br>
-                <span style="color: blue;">-夜泣き・疳の虫（ギャーギャー泣く）<br>
-                -夜尿（おねしょ）</span><br>
-                <span style="color: blue;">-食欲不振<br>
-                -虚弱体質（風邪をひきやすいなど）</span><br><br>`;
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：60分</strong>`;
             } else {
                 treatmentText.innerHTML = '';
             }
@@ -772,46 +793,113 @@
             updateDisplayInfo(); // 表示を更新
         }
 
-        function selectVisit(element) {
-            // 選択された日時をリセット
-            selectedFullDate = '';
+  // 退避/生成用の小ヘルパー
+  function getOrCreateTreatmentText() {
+    let el = document.getElementById('treatment-text');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'treatment-text';
+      el.style.display = 'none';
+      el.style.marginBottom = '10px';
+      // 既定は .symptoms の直後に置いておく
+      document.querySelector('.symptoms').insertAdjacentElement('afterend', el);
+    }
+    return el;
+  }
 
-            // ボタンの選択状態を切り替える
-            document.getElementById('firstVisit').classList.remove('active');
-            document.getElementById('repeatVisit').classList.remove('active');
-            element.classList.add('active');
-            visitCount = element.innerText;
+  // ★ selectVisit を一部置き換え
+  function selectVisit(element) {
+    selectedFullDate = '';
 
-            // 選択された訪問回数に対応する時間を取得
-            selectedVisitTime = visitTimes[visitCount];
+    document.getElementById('firstVisit').classList.remove('active');
+    document.getElementById('repeatVisit').classList.remove('active');
+    element.classList.add('active');
+    visitCount = element.innerText;
 
-            console.log('選択された訪問回数の時間:', selectedVisitTime);
+    selectedVisitTime = visitTimes[visitCount];
 
-    // 来院回数に応じてメニューを変更
     const symptomsContainer = document.querySelector('.symptoms');
+
+    // ▼ メニューを書き換える前に treatment-text を .symptoms の外へ退避
+    (function safeEjectTreatmentText(){
+      const t = document.getElementById('treatment-text');
+      if (t && symptomsContainer.contains(t)) {
+        symptomsContainer.insertAdjacentElement('afterend', t);
+        t.style.display = 'none';
+        t.innerHTML = '';
+      }
+    })();
+
     if (visitCount === "2回目以降") {
-        symptomsContainer.innerHTML = `
-            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">30分占い</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="4500">60分占い</button>
-        `;
+      symptomsContainer.innerHTML = `
+        <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">30分占い</button>
+        <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="4500">60分占い</button>
+      `;
     } else {
-        // 初めての場合、元のメニューに戻す
-        symptomsContainer.innerHTML = `
-            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">希望時間30分</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="4500">希望時間60分</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment7')" data-price="8700">希望時間90分</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment8')" data-price="1700">希望時間120分</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment8')" data-price="1700">希望時間150分</button>
-        `;
+      symptomsContainer.innerHTML = `
+        <button type="button" onclick="selectSymptom(this, 'treatment1')" data-price="6500">希望時間30分</button>
+        <button type="button" onclick="selectSymptom(this, 'treatment2')" data-price="4500">希望時間60分</button>
+        <button type="button" onclick="selectSymptom(this, 'treatment3')" data-price="1700">希望時間120分</button>
+        <button type="button" onclick="selectSymptom(this, 'treatment4')" data-price="1700">希望時間150分</button>
+      `;
     }
 
-    // メニュー変更後にカレンダーを表示
-    const calendarContainer = document.querySelector('.calendar-container');
-    calendarContainer.style.display = 'block';
-
-    // 空き状況を再取得
+    document.querySelector('.calendar-container').style.display = 'block';
     fetchAvailability(currentDate);
-}
+  }
+
+  // ★ selectSymptom を一部置き換え
+  function selectSymptom(button, treatmentId) {
+    selectedFullDate = '';
+
+    button.classList.toggle('active');
+
+    const updatedSelectedButtons = document.querySelectorAll('.symptoms button.active');
+    const treatmentText = getOrCreateTreatmentText();  // ←常に確保
+
+    if (updatedSelectedButtons.length === 0) {
+      selectedMenuTime = 0;
+      selectedSymptom = [];       // ← null ではなく配列に戻す
+      menuPrice = 0;
+      treatmentText.style.display = 'none';
+      treatmentText.innerHTML = '';
+      updateDisplayInfo();
+      fetchAvailability(currentDate);
+      return;
+    } else if (updatedSelectedButtons.length > 1) {
+      updatedSelectedButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+    }
+
+    const selectedMenu = button.textContent;
+    selectedMenuTime = menuTimes[selectedMenu] || 0;
+    selectedSymptom = [selectedMenu];
+    menuPrice = parseInt(button.getAttribute('data-price'), 10) || 0;
+
+    // ▼ 説明文セット（あなたの元の分岐をそのまま使用）
+    if (treatmentId === 'treatment1') {
+      treatmentText.innerHTML = `<div style="text-align: left;">サクッと一件占いたい方におすすめです！</div>`;
+    } else if (treatmentId === 'treatment2') {
+      treatmentText.innerHTML = `<div style="text-align: left;">ホロスコープを読んでいただきたい方におすすめです！</div>`;
+    } else if (treatmentId === 'treatment3') {
+      treatmentText.innerHTML = `<div style="text-align: left;">ゆっくり占いたい方におすすめです！</div>`;
+    } else if (treatmentId === 'treatment4') {
+      treatmentText.innerHTML = `<div style="text-align: left;">頻繁にご来店できない方におすすめです！</div>`;
+    } else if (treatmentId === 'treatment5') {
+      treatmentText.innerHTML = `<div style="text-align: left;">サクッと一件占いたい方におすすめです！</div>`;
+    } else if (treatmentId === 'treatment6') {
+      treatmentText.innerHTML = `<div style="text-align: left;">ゆっくり占いたい方におすすめです！</div>`;
+    } else {
+      treatmentText.innerHTML = '';
+    }
+
+    // ▼ 「選択されたボタンの直後」に移動
+    button.after(treatmentText);
+    treatmentText.style.display = 'block';
+
+    updateDisplayInfo();
+    fetchAvailability(currentDate);
+  }
 
         function selectDate(cell) {
             // "unavailable" クラスが付いている場合はクリックを無効化
